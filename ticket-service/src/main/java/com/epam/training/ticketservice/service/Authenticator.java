@@ -13,5 +13,5 @@ public interface Authenticator {
 
     boolean isAccountSignedIn();
 
-    Account getSignedInAccount();
+    Account getAccount();
 }

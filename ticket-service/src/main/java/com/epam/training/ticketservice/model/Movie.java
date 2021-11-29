@@ -1,14 +1,10 @@
 package com.epam.training.ticketservice.model;
 
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Objects;
 
 public final class Movie {
 
     @Id
-    @GeneratedValue
-    private Long id;
     private final String title;
     private final String genre;
     private final int length;

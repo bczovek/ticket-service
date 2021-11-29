@@ -9,10 +9,13 @@ import com.epam.training.ticketservice.service.exception.IncorrectCredentialsExc
 import com.epam.training.ticketservice.service.exception.SignInException;
 import com.epam.training.ticketservice.service.exception.SignOutException;
 
+import java.util.Optional;
+
 public class BasicAuthenticator implements Authenticator {
 
-    private Account signedInAccount = null;
-    private AdministratorCredentialsProvider administratorCredentialsProvider;
+    private final Account UNAUTHORIZED_ACCOUNT = new Account("", AccountLevel.UNAUTHORIZED);
+    private Account account = UNAUTHORIZED_ACCOUNT;
+    private final AdministratorCredentialsProvider administratorCredentialsProvider;
 
     public BasicAuthenticator(AdministratorCredentialsProvider administratorCredentialsProvider) {
         this.administratorCredentialsProvider = administratorCredentialsProvider;
@@ -20,11 +23,11 @@ public class BasicAuthenticator implements Authenticator {
 
     @Override
     public void privilegedSignIn(String username, String password) throws IncorrectCredentialsException {
-        if (signedInAccount == null) {
+        if (account == null) {
             AdministratorCredentials administratorCredentials = administratorCredentialsProvider.getAdministratorCredentials();
             if (administratorCredentials.getUsername().equals(username)
                     && administratorCredentials.getPassword().equals(password)) {
-                signedInAccount = new Account(username, AccountLevel.ADMINISTRATOR);
+                account = new Account(username, AccountLevel.ADMINISTRATOR);
             } else {
                 throw new IncorrectCredentialsException();
             }
@@ -40,8 +43,8 @@ public class BasicAuthenticator implements Authenticator {
 
     @Override
     public void signOut() {
-        if (signedInAccount != null) {
-            signedInAccount = null;
+        if (!account.getAccountLevel().equals(AccountLevel.UNAUTHORIZED)) {
+            account = UNAUTHORIZED_ACCOUNT;
         } else {
             throw new SignOutException("You are not signed in.");
         }
@@ -49,11 +52,11 @@ public class BasicAuthenticator implements Authenticator {
 
     @Override
     public boolean isAccountSignedIn() {
-        return signedInAccount != null;
+        return account != null;
     }
 
     @Override
-    public Account getSignedInAccount() {
-        return signedInAccount;
+    public Account getAccount() {
+        return account;
     }
 }

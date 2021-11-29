@@ -1,6 +1,7 @@
 package com.epam.training.ticketservice.presentation.cli.config;
 
 import com.epam.training.ticketservice.repository.AdministratorCredentialsProvider;
+import com.epam.training.ticketservice.repository.MovieRepository;
 import com.epam.training.ticketservice.service.Authenticator;
 import com.epam.training.ticketservice.service.TicketService;
 import com.epam.training.ticketservice.service.impl.BasicAuthenticator;
@@ -17,8 +18,8 @@ public class TicketServiceConfiguration {
     }
 
     @Bean
-    public TicketService ticketService(Authenticator authenticator){
-        return new BasicTicketService(authenticator);
+    public TicketService ticketService(Authenticator authenticator, MovieRepository movieRepository){
+        return new BasicTicketService(authenticator, movieRepository);
     }
 
 }
