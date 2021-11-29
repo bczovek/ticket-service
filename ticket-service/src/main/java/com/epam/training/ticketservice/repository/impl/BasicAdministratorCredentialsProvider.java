@@ -3,8 +3,10 @@ package com.epam.training.ticketservice.repository.impl;
 import com.epam.training.ticketservice.repository.AdministratorCredentialsProvider;
 import com.epam.training.ticketservice.repository.entity.AdministratorCredentials;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 
-public final class BasicAdministratorCredentialsProvider implements AdministratorCredentialsProvider {
+@Repository
+public class BasicAdministratorCredentialsProvider implements AdministratorCredentialsProvider {
 
     @Value("${administrator.username}")
     private String username;
