@@ -1,16 +1,17 @@
 package com.epam.training.ticketservice.repository;
 
-import com.epam.training.ticketservice.model.Movie;
+import com.epam.training.ticketservice.repository.entity.Movie;
 import org.springframework.data.repository.Repository;
 
-import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public interface MovieRepository extends Repository<Movie, Long> {
     void save(Movie movie);
 
-    Movie findMovieByName(Long id);
+    Optional<Movie> findMovieByTitle(String name);
 
-    List<Movie> findAll();
+    Stream<Movie> findAll();
 
-    void deleteByName();
+    void deleteByTitle(String title);
 }

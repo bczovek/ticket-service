@@ -1,16 +1,18 @@
 package com.epam.training.ticketservice.repository;
 
-import com.epam.training.ticketservice.model.Room;
+import com.epam.training.ticketservice.repository.entity.Room;
 import org.springframework.data.repository.Repository;
 
-import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public interface RoomRepository extends Repository<Room, Long> {
-    void save();
 
-    Room findRoomByName();
+    void save(Room room);
 
-    List<Room> findALl();
+    Optional<Room> findRoomByName(String name);
 
-    void deleteByName();
+    Stream<Room> findAll();
+
+    void deleteByName(String name);
 }

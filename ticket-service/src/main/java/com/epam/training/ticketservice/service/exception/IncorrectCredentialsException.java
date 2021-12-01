@@ -1,8 +1,8 @@
 package com.epam.training.ticketservice.service.exception;
 
-public class IncorrectCredentialsException extends Exception{
+public class IncorrectCredentialsException extends RuntimeException{
 
-    public IncorrectCredentialsException() {
-
+    public IncorrectCredentialsException(String message) {
+        super(message);
     }
 }

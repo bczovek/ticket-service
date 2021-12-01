@@ -23,13 +23,13 @@ public class BasicAuthenticator implements Authenticator {
     }
 
     @Override
-    public void privilegedSignIn(String username, String password) throws IncorrectCredentialsException {
+    public void privilegedSignIn(String username, String password) {
         AdministratorCredentials administratorCredentials = administratorCredentialsProvider.getAdministratorCredentials();
         if (administratorCredentials.getUsername().equals(username)
                 && administratorCredentials.getPassword().equals(password)) {
             account = AccountFactory.createAdministratorAccount(username);
         } else {
-            throw new IncorrectCredentialsException();
+            throw new IncorrectCredentialsException("Login failed due to incorrect credentials");
         }
     }
 
@@ -49,7 +49,7 @@ public class BasicAuthenticator implements Authenticator {
     }
 
     @Override
-    public void verify(List<AccountLevel> listOfAllowedAccountLevels) throws OperationNotAllowedException {
+    public void verify(List<AccountLevel> listOfAllowedAccountLevels) {
         if(!listOfAllowedAccountLevels.contains(account.getAccountLevel())){
             throw new OperationNotAllowedException("Operation not allowed for your account!");
         }

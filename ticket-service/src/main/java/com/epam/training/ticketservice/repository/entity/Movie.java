@@ -1,18 +1,23 @@
-package com.epam.training.ticketservice.model;
+package com.epam.training.ticketservice.repository.entity;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 
-public final class Movie {
+@Entity
+public class Movie {
 
     @Id
-    private final String title;
-    private final String genre;
-    private final int length;
+    private String title;
+    private String genre;
+    private int length;
 
     public Movie(String title, String genre, int length) {
         this.title = title;
         this.genre = genre;
         this.length = length;
+    }
+
+    public Movie() {
     }
 
     public String getTitle() {
@@ -26,5 +31,4 @@ public final class Movie {
     public int getLength() {
         return length;
     }
-
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface Authenticator {
 
-    void privilegedSignIn(String username, String password) throws IncorrectCredentialsException;
+    void privilegedSignIn(String username, String password);
 
     void signIn(String username, String password);
 
@@ -17,5 +17,5 @@ public interface Authenticator {
 
     Account getAccount();
 
-    void verify(List<AccountLevel> listOfAllowedAccountLevels) throws OperationNotAllowedException;
+    void verify(List<AccountLevel> listOfAllowedAccountLevels);
 }

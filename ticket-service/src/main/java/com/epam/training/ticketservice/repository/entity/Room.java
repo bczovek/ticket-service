@@ -1,16 +1,24 @@
-package com.epam.training.ticketservice.model;
+package com.epam.training.ticketservice.repository.entity;
 
-public final class Room {
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-    private Long id;
-    private final String name;
-    private final int numberOfRows;
-    private final int numberOfColumns;
+@Entity
+public class Room {
+
+    @Id
+    private String name;
+    private int numberOfRows;
+    private int numberOfColumns;
 
     public Room(String name, int numberOfRows, int numberOfColumns) {
         this.name = name;
         this.numberOfRows = numberOfRows;
         this.numberOfColumns = numberOfColumns;
+    }
+
+    public Room() {
+
     }
 
     public String getName() {
@@ -24,6 +32,5 @@ public final class Room {
     public int getNumberOfColumns() {
         return numberOfColumns;
     }
-
 
 }

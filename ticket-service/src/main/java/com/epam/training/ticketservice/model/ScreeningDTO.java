@@ -2,24 +2,24 @@ package com.epam.training.ticketservice.model;
 
 import java.time.LocalDateTime;
 
-public final class Screening {
+public final class ScreeningDTO {
 
     private Long id;
-    private final Movie movie;
-    private final Room room;
+    private final MovieDTO movie;
+    private final RoomDTO room;
     private final LocalDateTime startDateTime;
 
-    public Screening(Movie movie, Room room, LocalDateTime startDateTime) {
+    public ScreeningDTO(MovieDTO movie, RoomDTO room, LocalDateTime startDateTime) {
         this.movie = movie;
         this.room = room;
         this.startDateTime = startDateTime;
     }
 
-    public Movie getMovie() {
+    public MovieDTO getMovie() {
         return movie;
     }
 
-    public Room getRoom() {
+    public RoomDTO getRoom() {
         return room;
     }
 
