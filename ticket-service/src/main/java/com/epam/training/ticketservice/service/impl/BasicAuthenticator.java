@@ -1,38 +1,35 @@
 package com.epam.training.ticketservice.service.impl;
 
 import com.epam.training.ticketservice.model.account.Account;
+import com.epam.training.ticketservice.model.account.AccountFactory;
 import com.epam.training.ticketservice.model.account.AccountLevel;
 import com.epam.training.ticketservice.repository.AdministratorCredentialsProvider;
 import com.epam.training.ticketservice.repository.entity.AdministratorCredentials;
 import com.epam.training.ticketservice.service.Authenticator;
 import com.epam.training.ticketservice.service.exception.IncorrectCredentialsException;
-import com.epam.training.ticketservice.service.exception.SignInException;
+import com.epam.training.ticketservice.service.exception.OperationNotAllowedException;
 import com.epam.training.ticketservice.service.exception.SignOutException;
 
-import java.util.Optional;
+import java.util.List;
 
 public class BasicAuthenticator implements Authenticator {
 
-    private final Account UNAUTHORIZED_ACCOUNT = new Account("", AccountLevel.UNAUTHORIZED);
+    private final Account UNAUTHORIZED_ACCOUNT = AccountFactory.createUnauthorizedAccount();
     private Account account = UNAUTHORIZED_ACCOUNT;
     private final AdministratorCredentialsProvider administratorCredentialsProvider;
 
-    public BasicAuthenticator(AdministratorCredentialsProvider administratorCredentialsProvider) {
+    public BasicAuthenticator(final AdministratorCredentialsProvider administratorCredentialsProvider) {
         this.administratorCredentialsProvider = administratorCredentialsProvider;
     }
 
     @Override
     public void privilegedSignIn(String username, String password) throws IncorrectCredentialsException {
-        if (account == null) {
-            AdministratorCredentials administratorCredentials = administratorCredentialsProvider.getAdministratorCredentials();
-            if (administratorCredentials.getUsername().equals(username)
-                    && administratorCredentials.getPassword().equals(password)) {
-                account = new Account(username, AccountLevel.ADMINISTRATOR);
-            } else {
-                throw new IncorrectCredentialsException();
-            }
+        AdministratorCredentials administratorCredentials = administratorCredentialsProvider.getAdministratorCredentials();
+        if (administratorCredentials.getUsername().equals(username)
+                && administratorCredentials.getPassword().equals(password)) {
+            account = AccountFactory.createAdministratorAccount(username);
         } else {
-            throw new SignInException("User already signed in. Sign out first.");
+            throw new IncorrectCredentialsException();
         }
     }
 
@@ -43,20 +40,18 @@ public class BasicAuthenticator implements Authenticator {
 
     @Override
     public void signOut() {
-        if (!account.getAccountLevel().equals(AccountLevel.UNAUTHORIZED)) {
-            account = UNAUTHORIZED_ACCOUNT;
-        } else {
-            throw new SignOutException("You are not signed in.");
-        }
-    }
-
-    @Override
-    public boolean isAccountSignedIn() {
-        return account != null;
+        account = UNAUTHORIZED_ACCOUNT;
     }
 
     @Override
     public Account getAccount() {
         return account;
+    }
+
+    @Override
+    public void verify(List<AccountLevel> listOfAllowedAccountLevels) throws OperationNotAllowedException {
+        if(!listOfAllowedAccountLevels.contains(account.getAccountLevel())){
+            throw new OperationNotAllowedException("Operation not allowed for your account!");
+        }
     }
 }
