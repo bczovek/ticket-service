@@ -1,6 +1,6 @@
 package com.epam.training.ticketservice.model.account;
 
-public class AccountFactory {
+public final class AccountFactory {
 
     private AccountFactory(){
 

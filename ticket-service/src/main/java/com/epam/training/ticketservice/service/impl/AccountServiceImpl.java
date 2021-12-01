@@ -11,7 +11,7 @@ public class AccountServiceImpl implements AccountService {
 
     private final Authenticator authenticator;
 
-    public AccountServiceImpl(Authenticator authenticator) {
+    public AccountServiceImpl(final Authenticator authenticator) {
         this.authenticator = authenticator;
     }
 

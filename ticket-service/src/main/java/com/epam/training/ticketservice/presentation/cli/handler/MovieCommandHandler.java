@@ -44,6 +44,7 @@ public class MovieCommandHandler {
             stringBuilder.append(movieDTO.toString())
                     .append("\n");
         }
+        stringBuilder.deleteCharAt(stringBuilder.length()-1);
 
         return stringBuilder.toString();
     }
