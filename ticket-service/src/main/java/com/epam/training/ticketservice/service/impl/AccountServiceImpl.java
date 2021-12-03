@@ -4,9 +4,11 @@ import com.epam.training.ticketservice.model.account.Account;
 import com.epam.training.ticketservice.model.account.AccountLevel;
 import com.epam.training.ticketservice.service.AccountService;
 import com.epam.training.ticketservice.service.Authenticator;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class AccountServiceImpl implements AccountService {
 
     private final Authenticator authenticator;

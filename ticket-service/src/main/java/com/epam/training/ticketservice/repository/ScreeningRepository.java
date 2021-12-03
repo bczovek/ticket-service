@@ -1,5 +1,6 @@
 package com.epam.training.ticketservice.repository;
 
+import com.epam.training.ticketservice.repository.entity.Movie;
 import com.epam.training.ticketservice.repository.entity.Room;
 import com.epam.training.ticketservice.repository.entity.Screening;
 import org.springframework.data.repository.Repository;
@@ -15,9 +16,7 @@ public interface ScreeningRepository extends Repository<Screening, Long> {
 
     Stream<Screening> findAll();
 
-    Optional<Screening> findScreeningByRoomAndStartDateTime(Room room, LocalDateTime startDateTime);
-
-    void deleteByRoomAndStartDateTime(Room room, LocalDateTime startDateTime);
+    void deleteByMovieAndRoomAndStartDateTime(Movie movie, Room room, LocalDateTime startDateTime);
 
     List<Screening> findScreeningsByRoom(Room room);
 }

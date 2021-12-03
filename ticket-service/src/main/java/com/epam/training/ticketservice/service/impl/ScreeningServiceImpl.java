@@ -1,7 +1,5 @@
 package com.epam.training.ticketservice.service.impl;
 
-import com.epam.training.ticketservice.model.MovieDTO;
-import com.epam.training.ticketservice.model.RoomDTO;
 import com.epam.training.ticketservice.model.ScreeningDTO;
 import com.epam.training.ticketservice.model.account.AccountLevel;
 import com.epam.training.ticketservice.repository.MovieRepository;
@@ -13,7 +11,10 @@ import com.epam.training.ticketservice.repository.entity.Screening;
 import com.epam.training.ticketservice.service.Authenticator;
 import com.epam.training.ticketservice.service.ScreeningDecorator;
 import com.epam.training.ticketservice.service.ScreeningService;
+import com.epam.training.ticketservice.service.exception.NoSuchMovieException;
+import com.epam.training.ticketservice.service.exception.NoSuchRoomException;
 import com.epam.training.ticketservice.util.Utils;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class ScreeningServiceImpl implements ScreeningService {
 
     private final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm");
@@ -41,8 +43,10 @@ public class ScreeningServiceImpl implements ScreeningService {
     @Override
     public String createScreening(String movieTitle, String roomName, String dateTime) {
         authenticator.verify(List.of(AccountLevel.ADMINISTRATOR));
-        Movie movie = movieRepository.findMovieByTitle(movieTitle).orElseThrow();
-        Room room = roomRepository.findRoomByName(roomName).orElseThrow();
+        Movie movie = movieRepository.findMovieByTitle(movieTitle)
+                .orElseThrow(() -> new NoSuchMovieException("Movie '"+ movieTitle + "' does not exist"));
+        Room room = roomRepository.findRoomByName(roomName)
+                .orElseThrow(() -> new NoSuchRoomException("Room '"+ roomName + "' does not exist"));
         LocalDateTime startDateTime = LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
 
         List<ScreeningDecorator> screeningsInRoom = screeningRepository.findScreeningsByRoom(room).stream()
@@ -78,10 +82,13 @@ public class ScreeningServiceImpl implements ScreeningService {
     @Transactional
     public void deleteScreening(String movieTitle, String roomName, String dateTime) {
         authenticator.verify(List.of(AccountLevel.ADMINISTRATOR));
-        Room room = roomRepository.findRoomByName(roomName).orElseThrow();
+        Movie movie = movieRepository.findMovieByTitle(movieTitle)
+                .orElseThrow(() -> new NoSuchMovieException("Movie '"+ movieTitle + "' does not exist"));
+        Room room = roomRepository.findRoomByName(roomName)
+                .orElseThrow(() -> new NoSuchRoomException("Room '"+ roomName + "' does not exist"));
         LocalDateTime startDateTime = LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
 
-        screeningRepository.deleteByRoomAndStartDateTime(room, startDateTime);
+        screeningRepository.deleteByMovieAndRoomAndStartDateTime(movie, room, startDateTime);
     }
 
     @Override

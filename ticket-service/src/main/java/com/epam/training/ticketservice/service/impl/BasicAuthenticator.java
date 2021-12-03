@@ -8,9 +8,11 @@ import com.epam.training.ticketservice.repository.entity.AdministratorCredential
 import com.epam.training.ticketservice.service.Authenticator;
 import com.epam.training.ticketservice.service.exception.IncorrectCredentialsException;
 import com.epam.training.ticketservice.service.exception.OperationNotAllowedException;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class BasicAuthenticator implements Authenticator {
 
     private final Account UNAUTHORIZED_ACCOUNT = AccountFactory.createUnauthorizedAccount();

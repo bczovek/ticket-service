@@ -6,7 +6,6 @@ import com.epam.training.ticketservice.repository.MovieRepository;
 import com.epam.training.ticketservice.repository.entity.Movie;
 import com.epam.training.ticketservice.service.Authenticator;
 import com.epam.training.ticketservice.service.MovieService;
-import com.epam.training.ticketservice.service.exception.OperationNotAllowedException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

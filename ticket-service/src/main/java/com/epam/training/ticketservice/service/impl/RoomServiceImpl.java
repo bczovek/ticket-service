@@ -1,17 +1,18 @@
 package com.epam.training.ticketservice.service.impl;
 
-import com.epam.training.ticketservice.model.MovieDTO;
 import com.epam.training.ticketservice.model.RoomDTO;
 import com.epam.training.ticketservice.model.account.AccountLevel;
 import com.epam.training.ticketservice.repository.RoomRepository;
 import com.epam.training.ticketservice.repository.entity.Room;
 import com.epam.training.ticketservice.service.Authenticator;
 import com.epam.training.ticketservice.service.RoomService;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class RoomServiceImpl implements RoomService {
 
     private final Authenticator authenticator;
