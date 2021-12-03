@@ -1,6 +1,6 @@
 package com.epam.training.ticketservice.model.account;
 
-public final class AdministratorAccount implements Account{
+public final class AdministratorAccount implements Account {
 
     private final String username;
     private final AccountLevel accountLevel = AccountLevel.ADMINISTRATOR;
@@ -21,6 +21,6 @@ public final class AdministratorAccount implements Account{
 
     @Override
     public String describe() {
-        return String.format("Signed in with privileged account %s", this.getUsername());
+        return String.format("Signed in with privileged account '%s'", this.getUsername());
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.data.repository.Repository;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public interface MovieRepository extends Repository<Movie, Long> {
+public interface MovieRepository extends Repository<Movie, String> {
     void save(Movie movie);
 
     Optional<Movie> findMovieByTitle(String name);

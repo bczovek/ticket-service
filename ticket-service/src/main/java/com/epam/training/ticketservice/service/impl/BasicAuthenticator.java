@@ -8,7 +8,6 @@ import com.epam.training.ticketservice.repository.entity.AdministratorCredential
 import com.epam.training.ticketservice.service.Authenticator;
 import com.epam.training.ticketservice.service.exception.IncorrectCredentialsException;
 import com.epam.training.ticketservice.service.exception.OperationNotAllowedException;
-import com.epam.training.ticketservice.service.exception.SignOutException;
 
 import java.util.List;
 
@@ -24,7 +23,8 @@ public class BasicAuthenticator implements Authenticator {
 
     @Override
     public void privilegedSignIn(String username, String password) {
-        AdministratorCredentials administratorCredentials = administratorCredentialsProvider.getAdministratorCredentials();
+        AdministratorCredentials administratorCredentials =
+                administratorCredentialsProvider.getAdministratorCredentials();
         if (administratorCredentials.getUsername().equals(username)
                 && administratorCredentials.getPassword().equals(password)) {
             account = AccountFactory.createAdministratorAccount(username);
@@ -50,7 +50,7 @@ public class BasicAuthenticator implements Authenticator {
 
     @Override
     public void verify(List<AccountLevel> listOfAllowedAccountLevels) {
-        if(!listOfAllowedAccountLevels.contains(account.getAccountLevel())){
+        if (!listOfAllowedAccountLevels.contains(account.getAccountLevel())) {
             throw new OperationNotAllowedException("Operation not allowed for your account!");
         }
     }

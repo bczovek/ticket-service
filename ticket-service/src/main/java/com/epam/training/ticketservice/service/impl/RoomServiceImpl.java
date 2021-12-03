@@ -25,14 +25,16 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public void createRoom(String name, int numberOfRows, int numberOfColumns) {
         authenticator.verify(List.of(AccountLevel.ADMINISTRATOR));
-        Room room = new Room(name, numberOfRows, numberOfColumns);
-        roomRepository.save(room);
+        if (roomRepository.findRoomByName(name).isEmpty()) {
+            Room room = new Room(name, numberOfRows, numberOfColumns);
+            roomRepository.save(room);
+        }
     }
 
     @Override
     public void updateRoom(String name, int numberOfRows, int numberOfColumns) {
         authenticator.verify(List.of(AccountLevel.ADMINISTRATOR));
-        if(roomRepository.findRoomByName(name).isPresent()){
+        if (roomRepository.findRoomByName(name).isPresent()) {
             Room room = new Room(name, numberOfRows, numberOfColumns);
             roomRepository.save(room);
         }
@@ -49,7 +51,7 @@ public class RoomServiceImpl implements RoomService {
     @Transactional
     public void deleteRoom(String name) {
         authenticator.verify(List.of(AccountLevel.ADMINISTRATOR));
-        if(roomRepository.findRoomByName(name).isPresent()){
+        if (roomRepository.findRoomByName(name).isPresent()) {
             roomRepository.deleteByName(name);
         }
     }

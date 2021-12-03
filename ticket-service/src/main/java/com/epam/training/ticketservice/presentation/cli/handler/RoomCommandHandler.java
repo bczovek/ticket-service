@@ -18,20 +18,20 @@ public class RoomCommandHandler {
     }
 
     @ShellMethod(value = "Create a room", key = "create room")
-    public void createRoom(String name, int numberOfRows, int numberOfColumns){
+    public void createRoom(String name, int numberOfRows, int numberOfColumns) {
         roomService.createRoom(name, numberOfRows, numberOfColumns);
     }
 
     @ShellMethod(value = "Update a room", key = "update room")
-    public void updateRoom(String name, int numberOfRows, int numberOfColumns){
+    public void updateRoom(String name, int numberOfRows, int numberOfColumns) {
         roomService.updateRoom(name, numberOfRows, numberOfColumns);
     }
 
     @ShellMethod(value = "List all rooms", key = "list rooms")
-    public String listRooms(){
+    public String listRooms() {
         List<RoomDTO> roomDTOs = roomService.listRooms();
-        if(CollectionUtils.isEmpty(roomDTOs)){
-            return "There are no movies at the moment";
+        if (CollectionUtils.isEmpty(roomDTOs)) {
+            return "There are no rooms at the moment";
         }
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -39,13 +39,13 @@ public class RoomCommandHandler {
             stringBuilder.append(roomDTO.toString())
                     .append("\n");
         }
-        stringBuilder.deleteCharAt(stringBuilder.length()-1);
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
 
         return stringBuilder.toString();
     }
 
     @ShellMethod(value = "Delete a room", key = "delete room")
-    public void deleteRoom(String name){
+    public void deleteRoom(String name) {
         roomService.deleteRoom(name);
     }
 }

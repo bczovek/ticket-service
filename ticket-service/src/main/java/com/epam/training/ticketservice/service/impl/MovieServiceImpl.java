@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,14 +27,16 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public void createMovie(String title, String genre, int length) {
         authenticator.verify(List.of(AccountLevel.ADMINISTRATOR));
-        Movie movie = new Movie(title, genre, length);
-        movieRepository.save(movie);
+        if (movieRepository.findMovieByTitle(title).isEmpty()) {
+            Movie movie = new Movie(title, genre, length);
+            movieRepository.save(movie);
+        }
     }
 
     @Override
     public void updateMovie(String title, String genre, int length) {
         authenticator.verify(List.of(AccountLevel.ADMINISTRATOR));
-        if(movieRepository.findMovieByTitle(title).isPresent()){
+        if (movieRepository.findMovieByTitle(title).isPresent()) {
             Movie movie = new Movie(title, genre, length);
             movieRepository.save(movie);
         }
@@ -52,7 +53,7 @@ public class MovieServiceImpl implements MovieService {
     @Transactional
     public void deleteMovie(String title) {
         authenticator.verify(List.of(AccountLevel.ADMINISTRATOR));
-        if(movieRepository.findMovieByTitle(title).isPresent()){
+        if (movieRepository.findMovieByTitle(title).isPresent()) {
             movieRepository.deleteByTitle(title);
         }
     }

@@ -18,24 +18,24 @@ public class MovieCommandHandler {
     }
 
     @ShellMethod(value = "Create a movie", key = "create movie")
-    public void createMovie(String title, String genre, int length){
+    public void createMovie(String title, String genre, int length) {
         movieService.createMovie(title, genre, length);
     }
 
     @ShellMethod(value = "Update a movie", key = "update movie")
-    public void updateMovie(String title, String genre, int length){
+    public void updateMovie(String title, String genre, int length) {
         movieService.updateMovie(title, genre, length);
     }
 
     @ShellMethod(value = "Delete a movie", key = "delete movie")
-    public void deleteMovie(String title){
+    public void deleteMovie(String title) {
         movieService.deleteMovie(title);
     }
 
     @ShellMethod(value = "List every movie", key = "list movies")
-    public String listMovies(){
+    public String listMovies() {
         List<MovieDTO> movieDTOs = movieService.listMovies();
-        if(CollectionUtils.isEmpty(movieDTOs)){
+        if (CollectionUtils.isEmpty(movieDTOs)) {
             return "There are no movies at the moment";
         }
         StringBuilder stringBuilder = new StringBuilder();
@@ -44,7 +44,7 @@ public class MovieCommandHandler {
             stringBuilder.append(movieDTO.toString())
                     .append("\n");
         }
-        stringBuilder.deleteCharAt(stringBuilder.length()-1);
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
 
         return stringBuilder.toString();
     }

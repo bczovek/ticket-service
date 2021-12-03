@@ -6,7 +6,7 @@ import org.springframework.data.repository.Repository;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public interface RoomRepository extends Repository<Room, Long> {
+public interface RoomRepository extends Repository<Room, String> {
 
     void save(Room room);
 

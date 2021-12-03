@@ -1,6 +1,6 @@
 package com.epam.training.ticketservice.model.account;
 
-public final class UnauthorizedAccount implements Account{
+public final class UnauthorizedAccount implements Account {
 
     private final String username = "";
     private final AccountLevel accountLevel = AccountLevel.UNAUTHORIZED;
