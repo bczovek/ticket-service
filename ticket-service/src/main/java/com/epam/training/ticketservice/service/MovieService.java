@@ -1,7 +1,6 @@
 package com.epam.training.ticketservice.service;
 
-import com.epam.training.ticketservice.model.MovieDTO;
-import com.epam.training.ticketservice.service.exception.OperationNotAllowedException;
+import com.epam.training.ticketservice.model.MovieDto;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ public interface MovieService {
 
     void updateMovie(String title, String genre, int length);
 
-    List<MovieDTO> listMovies();
+    List<MovieDto> listMovies();
 
     void deleteMovie(String title);
 }

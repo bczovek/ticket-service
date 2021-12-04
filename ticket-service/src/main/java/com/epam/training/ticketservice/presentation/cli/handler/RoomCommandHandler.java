@@ -1,6 +1,6 @@
 package com.epam.training.ticketservice.presentation.cli.handler;
 
-import com.epam.training.ticketservice.model.RoomDTO;
+import com.epam.training.ticketservice.model.RoomDto;
 import com.epam.training.ticketservice.service.RoomService;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -29,14 +29,14 @@ public class RoomCommandHandler {
 
     @ShellMethod(value = "List all rooms", key = "list rooms")
     public String listRooms() {
-        List<RoomDTO> roomDTOs = roomService.listRooms();
-        if (CollectionUtils.isEmpty(roomDTOs)) {
+        List<RoomDto> roomDtos = roomService.listRooms();
+        if (CollectionUtils.isEmpty(roomDtos)) {
             return "There are no rooms at the moment";
         }
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (RoomDTO roomDTO : roomDTOs) {
-            stringBuilder.append(roomDTO.toString())
+        for (RoomDto roomDto : roomDtos) {
+            stringBuilder.append(roomDto.toString())
                     .append("\n");
         }
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);

@@ -1,6 +1,6 @@
 package com.epam.training.ticketservice.service.impl;
 
-import com.epam.training.ticketservice.model.RoomDTO;
+import com.epam.training.ticketservice.model.RoomDto;
 import com.epam.training.ticketservice.model.account.AccountLevel;
 import com.epam.training.ticketservice.repository.RoomRepository;
 import com.epam.training.ticketservice.repository.entity.Room;
@@ -42,9 +42,9 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<RoomDTO> listRooms() {
+    public List<RoomDto> listRooms() {
         return roomRepository.findAll()
-                .map(room -> new RoomDTO(room.getName(), room.getNumberOfRows(), room.getNumberOfColumns()))
+                .map(room -> new RoomDto(room.getName(), room.getNumberOfRows(), room.getNumberOfColumns()))
                 .collect(Collectors.toList());
     }
 

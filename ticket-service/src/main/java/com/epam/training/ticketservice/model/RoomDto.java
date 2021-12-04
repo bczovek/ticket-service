@@ -1,12 +1,12 @@
 package com.epam.training.ticketservice.model;
 
-public final class RoomDTO {
+public final class RoomDto {
 
     private final String name;
     private final int numberOfRows;
     private final int numberOfColumns;
 
-    public RoomDTO(String name, int numberOfRows, int numberOfColumns) {
+    public RoomDto(String name, int numberOfRows, int numberOfColumns) {
         this.name = name;
         this.numberOfRows = numberOfRows;
         this.numberOfColumns = numberOfColumns;

@@ -1,12 +1,12 @@
 package com.epam.training.ticketservice.model;
 
-public final class MovieDTO {
+public final class MovieDto {
 
     private final String title;
     private final String genre;
     private final int length;
 
-    public MovieDTO(String title, String genre, int length) {
+    public MovieDto(String title, String genre, int length) {
         this.title = title;
         this.genre = genre;
         this.length = length;

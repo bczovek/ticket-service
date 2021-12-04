@@ -1,6 +1,6 @@
 package com.epam.training.ticketservice.presentation.cli.handler;
 
-import com.epam.training.ticketservice.model.ScreeningDTO;
+import com.epam.training.ticketservice.model.ScreeningDto;
 import com.epam.training.ticketservice.service.ScreeningService;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -29,14 +29,14 @@ public class ScreeningCommandHandler {
 
     @ShellMethod(value = "List all screenings", key = "list screenings")
     public String listScreenings() {
-        List<ScreeningDTO> screeningDTOs = screeningService.listScreenings();
-        if (CollectionUtils.isEmpty(screeningDTOs)) {
+        List<ScreeningDto> screeningDtos = screeningService.listScreenings();
+        if (CollectionUtils.isEmpty(screeningDtos)) {
             return "There are no screenings";
         }
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (ScreeningDTO screeningDTO : screeningDTOs) {
-            stringBuilder.append(screeningDTO.toString())
+        for (ScreeningDto screeningDto : screeningDtos) {
+            stringBuilder.append(screeningDto.toString())
                     .append("\n");
         }
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);

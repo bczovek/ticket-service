@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 public class BasicAuthenticator implements Authenticator {
 
-    private final Account UNAUTHORIZED_ACCOUNT = AccountFactory.createUnauthorizedAccount();
+    private static final Account UNAUTHORIZED_ACCOUNT = AccountFactory.createUnauthorizedAccount();
     private Account account = UNAUTHORIZED_ACCOUNT;
     private final AdministratorCredentialsProvider administratorCredentialsProvider;
 

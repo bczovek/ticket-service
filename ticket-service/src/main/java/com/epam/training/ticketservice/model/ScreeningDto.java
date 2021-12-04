@@ -3,23 +3,23 @@ package com.epam.training.ticketservice.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public final class ScreeningDTO {
+public final class ScreeningDto {
 
-    private final MovieDTO movie;
-    private final RoomDTO room;
+    private final MovieDto movie;
+    private final RoomDto room;
     private final LocalDateTime startDateTime;
 
-    public ScreeningDTO(MovieDTO movie, RoomDTO room, LocalDateTime startDateTime) {
+    public ScreeningDto(MovieDto movie, RoomDto room, LocalDateTime startDateTime) {
         this.movie = movie;
         this.room = room;
         this.startDateTime = startDateTime;
     }
 
-    public MovieDTO getMovie() {
+    public MovieDto getMovie() {
         return movie;
     }
 
-    public RoomDTO getRoom() {
+    public RoomDto getRoom() {
         return room;
     }
 

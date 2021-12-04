@@ -1,6 +1,6 @@
 package com.epam.training.ticketservice.service.impl;
 
-import com.epam.training.ticketservice.model.ScreeningDTO;
+import com.epam.training.ticketservice.model.ScreeningDto;
 import com.epam.training.ticketservice.model.account.AccountLevel;
 import com.epam.training.ticketservice.repository.MovieRepository;
 import com.epam.training.ticketservice.repository.RoomRepository;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Service
 public class ScreeningServiceImpl implements ScreeningService {
 
-    private final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm");
 
     private final ScreeningRepository screeningRepository;
     private final MovieRepository movieRepository;
@@ -44,13 +44,13 @@ public class ScreeningServiceImpl implements ScreeningService {
     public String createScreening(String movieTitle, String roomName, String dateTime) {
         authenticator.verify(List.of(AccountLevel.ADMINISTRATOR));
         Movie movie = movieRepository.findMovieByTitle(movieTitle)
-                .orElseThrow(() -> new NoSuchMovieException("Movie '"+ movieTitle + "' does not exist"));
+                .orElseThrow(() -> new NoSuchMovieException("Movie '" + movieTitle + "' does not exist"));
         Room room = roomRepository.findRoomByName(roomName)
-                .orElseThrow(() -> new NoSuchRoomException("Room '"+ roomName + "' does not exist"));
+                .orElseThrow(() -> new NoSuchRoomException("Room '" + roomName + "' does not exist"));
         LocalDateTime startDateTime = LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
 
         List<ScreeningDecorator> screeningsInRoom = screeningRepository.findScreeningsByRoom(room).stream()
-                .map(Utils::mapScreeningDTO)
+                .map(Utils::mapScreeningDto)
                 .map(ScreeningDecorator::new)
                 .collect(Collectors.toList());
 
@@ -83,17 +83,17 @@ public class ScreeningServiceImpl implements ScreeningService {
     public void deleteScreening(String movieTitle, String roomName, String dateTime) {
         authenticator.verify(List.of(AccountLevel.ADMINISTRATOR));
         Movie movie = movieRepository.findMovieByTitle(movieTitle)
-                .orElseThrow(() -> new NoSuchMovieException("Movie '"+ movieTitle + "' does not exist"));
+                .orElseThrow(() -> new NoSuchMovieException("Movie '" + movieTitle + "' does not exist"));
         Room room = roomRepository.findRoomByName(roomName)
-                .orElseThrow(() -> new NoSuchRoomException("Room '"+ roomName + "' does not exist"));
+                .orElseThrow(() -> new NoSuchRoomException("Room '" + roomName + "' does not exist"));
         LocalDateTime startDateTime = LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
 
         screeningRepository.deleteByMovieAndRoomAndStartDateTime(movie, room, startDateTime);
     }
 
     @Override
-    public List<ScreeningDTO> listScreenings() {
-        return screeningRepository.findAll().map(Utils::mapScreeningDTO)
+    public List<ScreeningDto> listScreenings() {
+        return screeningRepository.findAll().map(Utils::mapScreeningDto)
                 .collect(Collectors.toList());
     }
 

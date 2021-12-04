@@ -1,6 +1,6 @@
 package com.epam.training.ticketservice.service.impl;
 
-import com.epam.training.ticketservice.model.MovieDTO;
+import com.epam.training.ticketservice.model.MovieDto;
 import com.epam.training.ticketservice.model.account.AccountLevel;
 import com.epam.training.ticketservice.repository.MovieRepository;
 import com.epam.training.ticketservice.repository.entity.Movie;
@@ -42,9 +42,9 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<MovieDTO> listMovies() {
+    public List<MovieDto> listMovies() {
         return movieRepository.findAll()
-                .map(movie -> new MovieDTO(movie.getTitle(), movie.getGenre(), movie.getLength()))
+                .map(movie -> new MovieDto(movie.getTitle(), movie.getGenre(), movie.getLength()))
                 .collect(Collectors.toList());
     }
 

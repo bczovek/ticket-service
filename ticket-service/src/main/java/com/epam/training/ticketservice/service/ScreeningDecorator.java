@@ -1,14 +1,14 @@
 package com.epam.training.ticketservice.service;
 
-import com.epam.training.ticketservice.model.ScreeningDTO;
+import com.epam.training.ticketservice.model.ScreeningDto;
 
 import java.time.LocalDateTime;
 
 public final class ScreeningDecorator {
 
-    private final ScreeningDTO screening;
+    private final ScreeningDto screening;
 
-    public ScreeningDecorator(ScreeningDTO screening) {
+    public ScreeningDecorator(ScreeningDto screening) {
         this.screening = screening;
     }
 

@@ -1,8 +1,8 @@
 package com.epam.training.ticketservice.util;
 
-import com.epam.training.ticketservice.model.MovieDTO;
-import com.epam.training.ticketservice.model.RoomDTO;
-import com.epam.training.ticketservice.model.ScreeningDTO;
+import com.epam.training.ticketservice.model.MovieDto;
+import com.epam.training.ticketservice.model.RoomDto;
+import com.epam.training.ticketservice.model.ScreeningDto;
 import com.epam.training.ticketservice.repository.entity.Movie;
 import com.epam.training.ticketservice.repository.entity.Room;
 import com.epam.training.ticketservice.repository.entity.Screening;
@@ -12,13 +12,13 @@ public final class Utils {
     private Utils() {
     }
 
-    public static ScreeningDTO mapScreeningDTO(Screening screening) {
+    public static ScreeningDto mapScreeningDto(Screening screening) {
         Movie movie = screening.getMovie();
-        MovieDTO movieDTO = new MovieDTO(movie.getTitle(), movie.getGenre(), movie.getLength());
+        MovieDto movieDto = new MovieDto(movie.getTitle(), movie.getGenre(), movie.getLength());
 
         Room room = screening.getRoom();
-        RoomDTO roomDTO = new RoomDTO(room.getName(), room.getNumberOfRows(), room.getNumberOfColumns());
+        RoomDto roomDto = new RoomDto(room.getName(), room.getNumberOfRows(), room.getNumberOfColumns());
 
-        return new ScreeningDTO(movieDTO, roomDTO, screening.getStartDateTime());
+        return new ScreeningDto(movieDto, roomDto, screening.getStartDateTime());
     }
 }
