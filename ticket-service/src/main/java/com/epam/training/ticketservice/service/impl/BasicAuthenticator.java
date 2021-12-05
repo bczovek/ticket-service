@@ -36,11 +36,6 @@ public class BasicAuthenticator implements Authenticator {
     }
 
     @Override
-    public void signIn(String username, String password) {
-
-    }
-
-    @Override
     public void signOut() {
         account = UNAUTHORIZED_ACCOUNT;
     }

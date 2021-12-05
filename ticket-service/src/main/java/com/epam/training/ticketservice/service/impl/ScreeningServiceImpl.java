@@ -9,7 +9,7 @@ import com.epam.training.ticketservice.repository.entity.Movie;
 import com.epam.training.ticketservice.repository.entity.Room;
 import com.epam.training.ticketservice.repository.entity.Screening;
 import com.epam.training.ticketservice.service.Authenticator;
-import com.epam.training.ticketservice.service.ScreeningDecorator;
+import com.epam.training.ticketservice.service.ScreeningDatesDecorator;
 import com.epam.training.ticketservice.service.ScreeningService;
 import com.epam.training.ticketservice.service.exception.NoSuchMovieException;
 import com.epam.training.ticketservice.service.exception.NoSuchRoomException;
@@ -49,12 +49,12 @@ public class ScreeningServiceImpl implements ScreeningService {
                 .orElseThrow(() -> new NoSuchRoomException("Room '" + roomName + "' does not exist"));
         LocalDateTime startDateTime = LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
 
-        List<ScreeningDecorator> screeningsInRoom = screeningRepository.findScreeningsByRoom(room).stream()
+        List<ScreeningDatesDecorator> screeningsInRoom = screeningRepository.findScreeningsByRoom(room).stream()
                 .map(Utils::mapScreeningDto)
-                .map(ScreeningDecorator::new)
+                .map(ScreeningDatesDecorator::new)
                 .collect(Collectors.toList());
 
-        for (ScreeningDecorator screening : screeningsInRoom) {
+        for (ScreeningDatesDecorator screening : screeningsInRoom) {
             if (startDateTime.isAfter(screening.getStartDateTime())
                     && startDateTime.plusMinutes(movie.getLength()).isBefore(screening.getEndDateTime())) {
                 return "There is an overlapping screening";

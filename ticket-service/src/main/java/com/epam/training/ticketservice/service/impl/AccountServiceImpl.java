@@ -24,11 +24,6 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void signIn(String username, String password) {
-
-    }
-
-    @Override
     public void signOut() {
         authenticator.verify(List.of(AccountLevel.ADMINISTRATOR));
         authenticator.signOut();

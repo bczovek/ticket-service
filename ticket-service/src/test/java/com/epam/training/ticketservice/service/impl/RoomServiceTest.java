@@ -19,9 +19,11 @@ import java.util.Optional;
 public class RoomServiceTest {
 
     private RoomService underTest;
+
     private static final String DUMMY_ROOM_NAME = "Name";
     private static final int DUMMY_ROOM_ROWS = 5;
     private static final int DUMMY_ROOM_COLUMNS = 5;
+    private static final List<AccountLevel> ALLOWED_ACCOUNT_LEVELS = List.of(AccountLevel.ADMINISTRATOR);
 
     @Mock
     private Authenticator authenticator;
@@ -37,14 +39,13 @@ public class RoomServiceTest {
 
     @Test
     public void testCreateRoomShouldSaveRoomWhenGivenNewRoom() {
-        // Given
-        List<AccountLevel> allowedAccountLevels = List.of(AccountLevel.ADMINISTRATOR);
+        // Given in set up
 
         // When
         underTest.createRoom(DUMMY_ROOM_NAME, DUMMY_ROOM_ROWS, DUMMY_ROOM_COLUMNS);
 
         // Then
-        Mockito.verify(authenticator).verify(allowedAccountLevels);
+        Mockito.verify(authenticator).verify(ALLOWED_ACCOUNT_LEVELS);
         Mockito.verify(roomRepository).findRoomByName(DUMMY_ROOM_NAME);
         Mockito.verify(roomRepository).save(Mockito.any(Room.class));
         Mockito.verifyNoMoreInteractions(roomRepository);
@@ -54,7 +55,6 @@ public class RoomServiceTest {
     @Test
     public void testCreateRoomShouldNotSaveRoomWhenGivenExistingRoom() {
         // Given
-        List<AccountLevel> allowedAccountLevels = List.of(AccountLevel.ADMINISTRATOR);
         Room expected = new Room(DUMMY_ROOM_NAME, DUMMY_ROOM_ROWS, DUMMY_ROOM_COLUMNS);
         BDDMockito.given(roomRepository.findRoomByName(DUMMY_ROOM_NAME)).willReturn(Optional.of(expected));
 
@@ -62,7 +62,7 @@ public class RoomServiceTest {
         underTest.createRoom(DUMMY_ROOM_NAME, DUMMY_ROOM_ROWS, DUMMY_ROOM_COLUMNS);
 
         // Then
-        Mockito.verify(authenticator).verify(allowedAccountLevels);
+        Mockito.verify(authenticator).verify(ALLOWED_ACCOUNT_LEVELS);
         Mockito.verify(roomRepository).findRoomByName(DUMMY_ROOM_NAME);
         Mockito.verifyNoMoreInteractions(roomRepository);
         Mockito.verifyNoMoreInteractions(authenticator);
@@ -71,7 +71,6 @@ public class RoomServiceTest {
     @Test
     public void testUpdateRoomShouldUpdateRoomWhenGivenExistingRoom() {
         // Given
-        List<AccountLevel> allowedAccountLevels = List.of(AccountLevel.ADMINISTRATOR);
         Room expected = new Room(DUMMY_ROOM_NAME, DUMMY_ROOM_ROWS, DUMMY_ROOM_COLUMNS);
         BDDMockito.given(roomRepository.findRoomByName(DUMMY_ROOM_NAME)).willReturn(Optional.of(expected));
 
@@ -79,7 +78,7 @@ public class RoomServiceTest {
         underTest.updateRoom(DUMMY_ROOM_NAME, DUMMY_ROOM_ROWS, DUMMY_ROOM_COLUMNS);
 
         // Then
-        Mockito.verify(authenticator).verify(allowedAccountLevels);
+        Mockito.verify(authenticator).verify(ALLOWED_ACCOUNT_LEVELS);
         Mockito.verify(roomRepository).findRoomByName(DUMMY_ROOM_NAME);
         Mockito.verify(roomRepository).save(Mockito.any(Room.class));
         Mockito.verifyNoMoreInteractions(roomRepository);
@@ -88,14 +87,13 @@ public class RoomServiceTest {
 
     @Test
     public void testUpdateRoomShouldNotUpdateRoomWhenGivenNewRoom() {
-        // Given
-        List<AccountLevel> allowedAccountLevels = List.of(AccountLevel.ADMINISTRATOR);
+        // Given in set up
 
         // When
         underTest.updateRoom(DUMMY_ROOM_NAME, DUMMY_ROOM_ROWS, DUMMY_ROOM_COLUMNS);
 
         // Then
-        Mockito.verify(authenticator).verify(allowedAccountLevels);
+        Mockito.verify(authenticator).verify(ALLOWED_ACCOUNT_LEVELS);
         Mockito.verify(roomRepository).findRoomByName(DUMMY_ROOM_NAME);
         Mockito.verifyNoMoreInteractions(roomRepository);
         Mockito.verifyNoMoreInteractions(authenticator);
@@ -115,7 +113,6 @@ public class RoomServiceTest {
     @Test
     public void testDeleteRoomShouldDeleteRoomWhenGivenExistingRoom() {
         // Given
-        List<AccountLevel> allowedAccountLevels = List.of(AccountLevel.ADMINISTRATOR);
         Room expected = new Room(DUMMY_ROOM_NAME, DUMMY_ROOM_ROWS, DUMMY_ROOM_COLUMNS);
         BDDMockito.given(roomRepository.findRoomByName(DUMMY_ROOM_NAME)).willReturn(Optional.of(expected));
 
@@ -123,7 +120,7 @@ public class RoomServiceTest {
         underTest.deleteRoom(DUMMY_ROOM_NAME);
 
         // Then
-        Mockito.verify(authenticator).verify(allowedAccountLevels);
+        Mockito.verify(authenticator).verify(ALLOWED_ACCOUNT_LEVELS);
         Mockito.verify(roomRepository).findRoomByName(DUMMY_ROOM_NAME);
         Mockito.verify(roomRepository).deleteByName(DUMMY_ROOM_NAME);
         Mockito.verifyNoMoreInteractions(roomRepository);
@@ -131,14 +128,13 @@ public class RoomServiceTest {
 
     @Test
     public void testDeleteRoomShouldNotDeleteRoomWhenGivenNewRoom() {
-        // Given
-        List<AccountLevel> allowedAccountLevels = List.of(AccountLevel.ADMINISTRATOR);
+        // Given in set up
 
         // When
         underTest.deleteRoom(DUMMY_ROOM_NAME);
 
         // Then
-        Mockito.verify(authenticator).verify(allowedAccountLevels);
+        Mockito.verify(authenticator).verify(ALLOWED_ACCOUNT_LEVELS);
         Mockito.verify(roomRepository).findRoomByName(DUMMY_ROOM_NAME);
         Mockito.verifyNoMoreInteractions(roomRepository);
     }

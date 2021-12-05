@@ -10,9 +10,7 @@ public interface AccountService {
 
     void privilegedSignIn(String username, String password);
 
-    void signIn(String username, String password);
-
-    void signOut() throws OperationNotAllowedException;
+    void signOut();
 
     Account getAccount();
 }

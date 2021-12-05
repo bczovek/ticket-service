@@ -4,11 +4,11 @@ import com.epam.training.ticketservice.model.ScreeningDto;
 
 import java.time.LocalDateTime;
 
-public final class ScreeningDecorator {
+public final class ScreeningDatesDecorator {
 
     private final ScreeningDto screening;
 
-    public ScreeningDecorator(ScreeningDto screening) {
+    public ScreeningDatesDecorator(ScreeningDto screening) {
         this.screening = screening;
     }
 

@@ -19,6 +19,7 @@ import java.util.List;
 public class AuthenticatorTest {
 
     private Authenticator underTest;
+
     private static final String DUMMY_USERNAME = "test";
     private static final String DUMMY_PASSWORD = "secret";
 

@@ -11,8 +11,6 @@ public interface Authenticator {
 
     void privilegedSignIn(String username, String password);
 
-    void signIn(String username, String password);
-
     void signOut();
 
     Account getAccount();
